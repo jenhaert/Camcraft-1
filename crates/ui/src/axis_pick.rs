@@ -1,11 +1,11 @@
-//! The axes-in-the-plane pick draft (#557): while a Setups page row
-//! collects picks for +Y or +X, a viewport Edge or Vertex click lands
-//! here instead of in the open operation's geometry. Each axis takes one
-//! straight edge (Edge mode) or two points (Vertex mode); a face sets no
-//! direction and is refused by name in the status line. Ephemeral view
-//! state like the lay-on-a-plane draft - nothing here writes the world;
-//! Apply queues the undoable `AlignPartToSetup` through
-//! `CommandKind::TurnPartInPlane`.
+//! The part-axes pick draft (#557, full 3D since #769): while a Setups
+//! page row collects picks for +Y or +X, a viewport Edge or Vertex
+//! click lands here instead of in the open operation's geometry. Each
+//! axis takes one straight edge (Edge mode) or two points (Vertex
+//! mode); a face sets no direction and is refused by name in the status
+//! line. Ephemeral view state like the lay-on-a-plane draft - nothing
+//! here writes the world; Apply queues the undoable
+//! `AlignPartToSetup` through `CommandKind::AlignPartFromAxes`.
 //!
 //! Provenance: our own UI over plain fixture practice (indicate an edge
 //! along the table's travel); no vendor material consulted.

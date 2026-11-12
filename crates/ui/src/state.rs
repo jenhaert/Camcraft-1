@@ -359,10 +359,12 @@ pub enum CommandKind {
         picks: Vec<camcraft_app::operation::GeoSel>,
         lay: camcraft_app::pick::PlaneLay,
     },
-    /// Turn the part in a setup's work plane (#557): a straight edge or
-    /// two points for +Y and/or +X, read by the app. Undoable
-    /// (`AlignPartToSetup`). Never touches the work offset.
-    TurnPartInPlane {
+    /// Align the part from its picked axes (#769, was #557's in-plane
+    /// turn): with both +Y and +X picked, their directions define the
+    /// full 3D frame (+Z by the right-hand rule); one picked axis
+    /// keeps the in-plane turn. Undoable (`AlignPartToSetup`). Never
+    /// touches the work offset.
+    AlignPartFromAxes {
         setup: String,
         axes: camcraft_app::pick::InPlaneAxes,
     },
@@ -3229,8 +3231,8 @@ impl State {
                     }
                 }
             }
-            CommandKind::TurnPartInPlane { setup, axes } => {
-                match AlignPartToSetup::turn_in_plane(&self.world, &setup, &axes) {
+            CommandKind::AlignPartFromAxes { setup, axes } => {
+                match AlignPartToSetup::align_from_axes(&self.world, &setup, &axes) {
                     Ok(command) => {
                         self.history.execute(&self.world, command);
                         self.doc_version += 1;
@@ -3241,12 +3243,12 @@ impl State {
                             d.applied = true;
                         }
                         self.status = format!(
-                            "{setup} part turned in the plane: {}",
+                            "{setup} part aligned from its picks: {}",
                             crate::egui_app::align_text(camcraft_app::setup_align::stored(&self.world, &setup))
                         );
                     }
                     Err(err) => {
-                        self.refuse(ErrorScope::Setup, format!("part not turned in the plane: {err}"));
+                        self.refuse(ErrorScope::Setup, format!("part not aligned from its picks: {err}"));
                     }
                 }
             }

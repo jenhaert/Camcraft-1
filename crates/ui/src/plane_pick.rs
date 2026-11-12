@@ -70,7 +70,7 @@ pub fn take(state: &mut State, pick: GeoSel) {
         }
         FeatureSel::Chain(_) => format!(
             "{setup}: {} of '{}' is an edge - an edge cannot set a plane; pick a flat face \
-             (edges set an axis: Axes in the plane)",
+             (edges set an axis: Part axes)",
             pick.feature, pick.entity
         ),
         FeatureSel::Patch(_) | FeatureSel::Vertex(_) => {

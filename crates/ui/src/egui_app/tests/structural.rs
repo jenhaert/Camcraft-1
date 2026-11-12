@@ -259,7 +259,7 @@ fn setup_page_alignment_rows_structure() {
     let plane = h.query_by_label_contains("Lay on a plane - pick a face").expect("the plane row shows").rect();
     assert!(h.query_by_label("Pick a face").is_some_and(|n| !n.accesskit_node().is_disabled()), "the plane row picks a face");
     assert!(h.query_by_label("Pick face or edges").is_none(), "#554: the plane row offers no edge pick");
-    let axes = h.query_by_label_contains("Axes in the plane - pick an edge or two points").expect("the axes rows show");
+    let axes = h.query_by_label_contains("Part axes - pick an edge or two points for +Y and +X; +Z follows by the right-hand rule").expect("the axes rows show");
     assert!(plane.min.y < axes.rect().min.y, "the axes rows follow the plane row");
     for label in ["+Y by Edge", "+Y by Two points", "Pick +Y edge", "Flip +Y", "+X by Edge", "+X by Two points", "Pick +X edge", "Flip +X"] {
         assert!(h.query_by_label(label).is_some(), "the axes rows must show {label:?}");

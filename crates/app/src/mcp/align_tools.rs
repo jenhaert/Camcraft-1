@@ -1,7 +1,7 @@
 //! The MCP part-alignment tools: turn the part in a setup's work plane
 //! from picks (#557) - a straight edge, or two points, for +Y and/or +X -
 //! through the same undoable `AlignPartToSetup::turn_in_plane` the Setups
-//! page's "Axes in the plane" rows queue; and lay it on a plane through
+//! page's "Part axes" rows queue; and lay it on a plane through
 //! three picked points (#555), through `AlignPartToSetup::lay_on_points`
 //! like the "Lay on a plane - pick three points" row. Every refusal is
 //! the command's own text, returned as a tool error.
